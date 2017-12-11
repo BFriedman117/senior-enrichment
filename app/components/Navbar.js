@@ -15,6 +15,9 @@ function Navbar (props) {
       <NavLink to='/add-student'>
         <button>Add Student</button>
       </NavLink>
+      <NavLink to='/add-campus'>
+        <button>Add Campus</button>
+      </NavLink>
       <hr></hr>
     </div>
   )

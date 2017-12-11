@@ -20,8 +20,6 @@ function CampusStudents (props) {
           <tbody>
             <tr>
               <th>Name</th>
-              <th>email</th>
-              <th>GPA</th>
             </tr>
             {
               campusStudents.map(student => (
@@ -31,8 +29,6 @@ function CampusStudents (props) {
                       {student.name}
                     </NavLink>
                   </td>
-                  <td>{student.email}</td>
-                  <td>{student.gpa}</td>
                 </tr>
               ))
             }

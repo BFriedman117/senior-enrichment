@@ -1,11 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import store, { writeStudentInfo, sendNewStudent} from '../store';
+import store, { writeStudentInfo, sendNewStudent, campi} from '../store';
 
 
 function AddNewStudent(props) {
 
-  const { handleSubmit, handleChange, newStudent } = props;
+  const { handleSubmit, handleChange, newStudent, campi } = props;
 
   return (
     <form onSubmit={handleSubmit}>
@@ -14,7 +14,14 @@ function AddNewStudent(props) {
         <input value={newStudent.lastName} onChange={handleChange} name="lastName" placeholder="Last Name" />
         <input value={newStudent.email} onChange={handleChange} name="email" placeholder="eMail Address" />
         <input value={newStudent.gpa} onChange={handleChange} name="gpa" placeholder="Current GPA" />
-        <input value={newStudent.campusId} onChange={handleChange} name="campusId" placeholder="Campus ID" />
+        <select onChange={handleChange} name="campusId">
+            <option>-Select Campus-</option>
+          {
+            campi.map(campus => (
+              <option value={campus.id} name="campusId" key={campus.id}>{campus.name}</option>
+            ))
+          }
+        </select>
       </div>
       <div>
         <button type="submit">Add Student</button>
@@ -25,7 +32,8 @@ function AddNewStudent(props) {
 
 const mapStateToProps = function(state){
   return {
-    newStudent: state.newStudent
+    newStudent: state.newStudent,
+    campi: state.campi
   }
 }
 

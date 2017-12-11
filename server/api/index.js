@@ -96,7 +96,7 @@ apiRouter.put('/campus', (req, res, next) => {
 
 apiRouter.delete('/campus/:id', (req, res, next) => {
 
-  Students.findById(req.params.id)
+  Campus.findById(req.params.id)
   .then((campus) => {
     return campus.destroy()
   })

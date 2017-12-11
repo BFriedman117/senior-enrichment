@@ -3,6 +3,7 @@ import axios from 'axios';
 
 const GET_CAMPI = 'GET_CAMPI';
 const ADD_CAMPUS = 'ADD_CAMPUS';
+const REMOVE_CAMPUS = 'REMOVE_CAMPUS';
 
 export const getCampi = function(campi){
   return {
@@ -14,6 +15,14 @@ export const getCampi = function(campi){
 export const addCampus = function(campus){
   return {
     type: ADD_CAMPUS,
+    campus
+  }
+}
+
+export const removeCampus = function(campus){
+
+  return {
+    type: REMOVE_CAMPUS,
     campus
   }
 }
@@ -31,7 +40,29 @@ export function fetchCampi (){
   }
 }
 
-//Still need: Add Campus thunk creator upon writing POST route
+export function sendNewCampus (campus){
+
+  return function thunk(dispatch){
+    return axios.post('/api/campuses', campus)
+    .then(res => res.data)
+    .then(newCampus => {
+      dispatch(addCampus(newCampus));
+    })
+  }
+}
+
+export function deleteCampus(campus, history){
+  console.log('delete ran: ', campus)
+  return function thunk(dispatch){
+    return axios.delete('/api/campus/' + campus.id, campus)
+    .then(res => res.data)
+    .then(data => {
+      console.log('thunk data: ', data)
+      dispatch(removeCampus(campus))
+      history.push('/campi')
+    })
+  }
+}
 
 export default function reducer (state=[], action){
 
@@ -42,6 +73,9 @@ export default function reducer (state=[], action){
 
     case ADD_CAMPUS:
       return [...state, action.campus];
+
+    case REMOVE_CAMPUS:
+      return state.filter(campus => campus.id != action.campus.id)
 
     default:
       return state

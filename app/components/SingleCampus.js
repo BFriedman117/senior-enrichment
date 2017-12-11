@@ -1,13 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom'
+import { withRouter, NavLink } from 'react-router-dom'
 import CampusStudents from './CampusStudents'
-
+import store, { deleteCampus } from '../store';
 
 
 function SingleCampus (props) {
 
-    const { campi } = props;
+    const { campi, handleDelete } = props;
     const id = Number(props.match.params.id)
     const currentCampus = campi.find(campus => campus.id === id)
 
@@ -24,6 +24,14 @@ function SingleCampus (props) {
                 <tr key={currentCampus.id}>
                   <td>{currentCampus.name}</td>
                   <td>{currentCampus.description}</td>
+                  <td>
+                    <NavLink to={`/campi/${currentCampus.id}/edit`}>
+                      <button>Edit</button>
+                    </NavLink>
+                    </td>
+                    <td>
+                      <button onClick={handleDelete} id={currentCampus.id} name={currentCampus.name}>Delete</button>
+                    </td>
                 </tr>
               </tbody>
             </table>
@@ -40,9 +48,27 @@ function SingleCampus (props) {
 
 const mapStateToProps = function(state){
   return {
+    students: state.students,
     campi: state.campi
   }
 }
 
-const SingleCampusContainer = connect(mapStateToProps)(SingleCampus);
-export default SingleCampusContainer
+const mapDispatchToProps = function(dispatch, ownProps){
+  const id = {
+    id: Number(ownProps.match.params.id)
+  }
+
+  return {
+    handleDelete: function(evt){
+      evt.preventDefault()
+      const history = ownProps.history
+      const check = confirm(`Delete ${evt.target.name}?`)
+      if (check){
+        dispatch(deleteCampus(id, history))
+      }
+    }
+  }
+}
+
+const SingleCampusContainer = connect(mapStateToProps, mapDispatchToProps)(SingleCampus);
+export default withRouter(SingleCampusContainer)

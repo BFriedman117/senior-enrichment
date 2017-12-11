@@ -8,7 +8,9 @@ import AllStudents from './AllStudents'
 import SingleStudent from './SingleStudent'
 import SingleCampus from './SingleCampus'
 import AddNewStudent from './AddNewStudent'
+import AddCampus from './AddCampus'
 import EditStudent from './EditStudent'
+import EditCampus from './EditCampus'
 
 
 export default class Root extends Component {
@@ -38,8 +40,10 @@ export default class Root extends Component {
             <Route exact path="/students" component={AllStudents} />
             <Route exact path="/students/:id" component={SingleStudent} />
             <Route exact path="/students/:id/edit" component={EditStudent} />
+            <Route exact path="/campi/:id/edit" component={EditCampus} />
             <Route exact path="/campi/:id" component={SingleCampus} />
             <Route exact path="/add-student" component={AddNewStudent} />
+            <Route exact path="/add-campus" component={AddCampus} />
             <Redirect to="/campi" />
           </Switch>
         </div>

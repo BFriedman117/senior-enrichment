@@ -1,11 +1,12 @@
 import axios from 'axios';
 import store from './index'
+
 // import socket from 'socket';
 
 const GET_STUDENTS = 'GET_STUDENTS';
 const ADD_STUDENT = 'ADD_STUDENT';
-const DELETE_STUDENT = 'DELETE_STUDENT';
-
+const REMOVE_STUDENT = 'REMOVE_STUDENT';
+const CHANGE_STUDENT = 'CHANGE_STUDENT';
 
 
 export const getStudents = function(students){
@@ -23,10 +24,26 @@ export const addStudent = function(student){
   }
 }
 
+export const updateStudent = function(student){
+
+  return {
+    type: UPDATE_STUDENT,
+    student
+  }
+}
+
 export const removeStudent = function(student){
 
   return {
-    type: DELETE_STUDENT,
+    type: REMOVE_STUDENT,
+    student
+  }
+}
+
+export const changeStudent = function(student){
+
+  return {
+    type: CHANGE_STUDENT,
     student
   }
 }
@@ -63,22 +80,12 @@ export function deleteStudent(student, history){
     .then(res => res.data)
     .then(data => {
       dispatch(removeStudent(student))
-      console.log(history)
       history.push('/students')
     })
   }
 }
 
-function removeFromArray(id, array){
-  let newArray = [];
 
-  for (let i = 0; i < array.length; i++){
-    if (array[i].id != id){
-      newArray.push(array[i])
-    }
-  }
-  return newArray
-}
 
 
 
@@ -92,9 +99,8 @@ export default function reducer (state = [], action){
     case ADD_STUDENT:
       return [...state, action.student];
 
-    case DELETE_STUDENT:
-      const newArray = removeFromArray(action.student.id, state);
-      return newArray
+    case REMOVE_STUDENT:
+      return state.filter(student => student.id !== action.student.id)
 
     default:
       return state

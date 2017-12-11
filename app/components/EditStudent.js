@@ -1,10 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import store, { changeStudentInfo, saveStudentInfo, fetchStudents } from '../store';
+import { withRouter, NavLink } from 'react-router-dom'
+import store, { changeStudentInfo, saveStudentInfo } from '../store';
 
 function EditStudent (props) {
 
-    const { students, handleChange, handleSubmit, editStudent } = props;
+    const { students, handleChange, handleSubmit, editStudent, campi } = props;
 
     if (students.length){
 
@@ -21,10 +22,19 @@ function EditStudent (props) {
             <input value={editStudent.lastName} onChange={handleChange} name="lastName" placeholder="Last Name" />
             <input value={editStudent.email} onChange={handleChange} name="email" placeholder="eMail Address" />
             <input value={editStudent.gpa} onChange={handleChange} name="gpa" placeholder="Current GPA" />
-            <input value={editStudent.campusId} onChange={handleChange} name="campusId" placeholder="Campus ID" />
+              <select onChange={handleChange} name="campusId" value={editStudent.campusId}>
+                {
+                  campi.map(campus => (
+                    <option value={campus.id} name="campusId" key={campus.id}>{campus.name}</option>
+                  ))
+                }
+              </select>
           </div>
           <div>
             <button type="submit">Save Changes</button>
+              <NavLink to={`/students/${editStudent.id}`}>
+                <button>Back</button>
+              </NavLink>
           </div>
         </form>
       )
@@ -37,7 +47,8 @@ const mapStateToProps = function(state, ownProps){
 
   return {
     editStudent: state.editStudent,
-    students: state.students
+    students: state.students,
+    campi: state.campi
   }
 }
 
@@ -60,13 +71,11 @@ const mapDispatchToProps = function(dispatch, ownProps){
     handleSubmit: function(evt){
       evt.preventDefault();
       const history = ownProps.history
-      const studentThunk = fetchStudents();
       dispatch(saveStudentInfo(studentBeingEdited, history))
-      dispatch(studentThunk)
     }
   }
 }
 
 const EditStudentContainer = connect(mapStateToProps, mapDispatchToProps)(EditStudent)
 
-export default EditStudentContainer
+export default withRouter(EditStudentContainer)

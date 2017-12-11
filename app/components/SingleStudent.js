@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter, NavLink } from 'react-router-dom'
-import store, { deleteStudent  } from '../store';
+import store, { deleteStudent } from '../store';
 
 
 
@@ -36,7 +36,7 @@ function SingleStudent (props) {
                 </td>
                 <td>
                   <NavLink to={`/students/${currentStudent.id}/edit`}>
-                    Edit Info
+                    <button>Edit</button>
                   </NavLink>
                 </td>
                 <td>
