@@ -11,6 +11,16 @@ function EditCampus (props) {
 
       const id = Number(props.match.params.id)
       const currentCampus = campi.find(campus => campus.id === id)
+
+
+      if (!currentCampus){
+        return (
+          <div>
+            <h1>404!</h1>
+            <h2>Campus Not Found</h2>
+          </div>
+        )
+      }
       const campusBeingEdited = Object.assign({}, currentCampus);
 
       return (
@@ -18,7 +28,7 @@ function EditCampus (props) {
           <div>
             <input value={editCampus.name} onChange={handleChange} name="name" placeholder="Name" />
             <input value={editCampus.description} onChange={handleChange} name="description" placeholder="Description" />
-            <input value={editCampus.imageUrl} onChange={handleChange} name="imageUrl" placeholder="eMail Address" />
+            <input value={editCampus.imageUrl} onChange={handleChange} name="imageUrl" placeholder="Image URL" />
           </div>
           <div>
             <button type="submit">Save Changes</button>

@@ -10,9 +10,19 @@ function SingleStudent (props) {
     const { students, campi, handleDelete } = props;
     const id = Number(props.match.params.id)
 
+
     if (students.length && campi.length){
 
       const currentStudent = students.find(student => student.id === id)
+      if (!currentStudent){
+        return (
+          <div>
+            <h1>404!</h1>
+            <h2>Student Not Found</h2>
+          </div>
+        )
+      }
+      currentStudent.campusId = Number(currentStudent.campusId)
       const studentCampus = campi.find(campus => campus.id === currentStudent.campusId)
 
       return (
@@ -30,7 +40,7 @@ function SingleStudent (props) {
                 <td>{currentStudent.email}</td>
                 <td>{currentStudent.gpa}</td>
                 <td>
-                  <NavLink to={`/campi/${studentCampus.id}`}>
+                  <NavLink to={`/campi/${currentStudent.campus}`}>
                     {studentCampus.name}
                   </NavLink>
                 </td>

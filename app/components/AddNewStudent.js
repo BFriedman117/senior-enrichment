@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import store, { writeStudentInfo, sendNewStudent, campi} from '../store';
 
 
+
 function AddNewStudent(props) {
 
   const { handleSubmit, handleChange, newStudent, campi } = props;
@@ -63,6 +64,7 @@ const mapDispatchToProps = function(dispatch){
       dispatch(sendNewStudent(newStudent))
       dispatch(writeStudentInfo(blankStudent))
     }
+
   }
 }
 

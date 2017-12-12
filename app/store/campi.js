@@ -4,6 +4,7 @@ import axios from 'axios';
 const GET_CAMPI = 'GET_CAMPI';
 const ADD_CAMPUS = 'ADD_CAMPUS';
 const REMOVE_CAMPUS = 'REMOVE_CAMPUS';
+const UPDATE_CAMPUS_ARRAY = 'UPDATE_CAMPUS_ARRAY'
 
 export const getCampi = function(campi){
   return {
@@ -23,6 +24,14 @@ export const removeCampus = function(campus){
 
   return {
     type: REMOVE_CAMPUS,
+    campus
+  }
+}
+
+export const updateCampusArray = function(campus){
+
+  return {
+    type: UPDATE_CAMPUS_ARRAY,
     campus
   }
 }
@@ -52,14 +61,13 @@ export function sendNewCampus (campus){
 }
 
 export function deleteCampus(campus, history){
-  console.log('delete ran: ', campus)
+
   return function thunk(dispatch){
     return axios.delete('/api/campus/' + campus.id, campus)
     .then(res => res.data)
     .then(data => {
-      console.log('thunk data: ', data)
-      dispatch(removeCampus(campus))
       history.push('/campi')
+      dispatch(removeCampus(campus))
     })
   }
 }
@@ -76,6 +84,9 @@ export default function reducer (state=[], action){
 
     case REMOVE_CAMPUS:
       return state.filter(campus => campus.id != action.campus.id)
+
+    case UPDATE_CAMPUS_ARRAY:
+      return state.filter(campus => campus.id != action.campus.id).concat(action.campus)
 
     default:
       return state

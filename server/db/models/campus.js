@@ -11,9 +11,10 @@ const Campus = db.define('campus', {
   },
   imageUrl: {
     type: Sequelize.STRING,
-    defaultValue: 'https://d30y9cdsu7xlg0.cloudfront.net/png/792-200.png'
+    defaultValue: null
   }
 })
+
 
 //get back to: imageUrl/default value?
 

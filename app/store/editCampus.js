@@ -1,5 +1,6 @@
 import store from './index';
 import axios from 'axios'
+import { updateCampusArray } from './campi'
 
 const CHANGE_CAMPUS_INFO = 'CHANGE_CAMPUS_INFO';
 const SAVE_CHANGES = 'SAVE_CHANGES'
@@ -32,7 +33,8 @@ export function saveCampusInfo (campus, history){
     .then(res => res.data)
     .then(editedCampus => {
       dispatch(saveCampusChanges(editedCampus))
-      history.push(`/campuss/${editedCampus.id}`)
+      dispatch(updateCampusArray(editedCampus))
+      history.push(`/campi/${editedCampus.id}`)
     })
   }
 

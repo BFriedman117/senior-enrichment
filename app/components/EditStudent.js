@@ -1,19 +1,27 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter, NavLink } from 'react-router-dom'
-import store, { changeStudentInfo, saveStudentInfo } from '../store';
+import store, { changeStudentInfo, saveStudentInfo, } from '../store';
 
 function EditStudent (props) {
 
+
     const { students, handleChange, handleSubmit, editStudent, campi } = props;
 
-    if (students.length){
+    if (students.length && campi.length){
 
       const id = Number(props.match.params.id)
       const currentStudent = students.find(student => student.id === id)
       const studentBeingEdited = Object.assign({}, currentStudent);
-      // console.log(studentBeingEdited)
-      // store.dispatch(changeStudentInfo(studentBeingEdited))
+
+      if (!currentStudent){
+        return (
+          <div>
+            <h1>404!</h1>
+            <h2>Student Not Found</h2>
+          </div>
+        )
+      }
 
       return (
         <form onSubmit={handleSubmit}>
@@ -44,7 +52,6 @@ function EditStudent (props) {
   }
 
 const mapStateToProps = function(state, ownProps){
-
   return {
     editStudent: state.editStudent,
     students: state.students,
@@ -73,6 +80,7 @@ const mapDispatchToProps = function(dispatch, ownProps){
       const history = ownProps.history
       dispatch(saveStudentInfo(studentBeingEdited, history))
     }
+
   }
 }
 

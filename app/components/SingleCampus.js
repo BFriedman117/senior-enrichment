@@ -11,6 +11,15 @@ function SingleCampus (props) {
     const id = Number(props.match.params.id)
     const currentCampus = campi.find(campus => campus.id === id)
 
+    if (!currentCampus){
+      return (
+        <div>
+          <h1>404!</h1>
+          <h2>Campus Not Found</h2>
+        </div>
+      )
+    }
+
     if (campi.length){
       return (
         <div className='single-campus'>

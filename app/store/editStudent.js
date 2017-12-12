@@ -1,5 +1,6 @@
 import store from './index';
 import axios from 'axios'
+import { updateStudentArray } from './students'
 
 const CHANGE_STUDENT_INFO = 'CHANGE_STUDENT_INFO';
 const SAVE_CHANGES = 'SAVE_CHANGES'
@@ -33,6 +34,7 @@ export function saveStudentInfo (student, history){
     return axios.put('/api/students', student)
     .then(res => res.data)
     .then(editedStudent => {
+      dispatch(updateStudentArray(editedStudent))
       dispatch(saveChanges(editedStudent))
       history.push(`/students/${editedStudent.id}`)
     })
