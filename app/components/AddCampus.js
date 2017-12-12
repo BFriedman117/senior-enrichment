@@ -48,13 +48,15 @@ const mapDispatchToProps = function(dispatch, ownProps){
 
     handleSubmit: function(evt){
       evt.preventDefault();
-      console.log('newCampus before attempt: ', newCampus)
       if (newCampus.imageUrl === ''){
         newCampus.imageUrl = "https://d30y9cdsu7xlg0.cloudfront.net/png/792-200.png"
       }
-      console.log('newCampus after attempt: ', newCampus)
-      dispatch(sendNewCampus(newCampus, history))
-      dispatch(writeCampusInfo(blankCampus))
+      if (newCampus.name != ''){
+        dispatch(sendNewCampus(newCampus, history))
+        dispatch(writeCampusInfo(blankCampus))
+      } else {
+        alert('Must fill out "Name" field')
+      }
     }
   }
 }

@@ -71,14 +71,14 @@ const mapDispatchToProps = function(dispatch, ownProps){
   }
 
   dispatch(fetchStudentCampus(id))
-  const studentCampus = store.getState().studentCampus
 
   return {
     handleDelete: function(evt){
       evt.preventDefault()
       const history = ownProps.history
+      const studentCampus = store.getState().studentCampus
       let check;
-      if (studentCampus.length){
+      if (!studentCampus.length){
         check = confirm(`Delete ${evt.target.name}?`)
         if (check){
           dispatch(deleteCampus(id, history))

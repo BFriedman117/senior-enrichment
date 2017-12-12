@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter, NavLink } from 'react-router-dom'
 import store, { changeStudentInfo, saveStudentInfo, } from '../store';
+import { validate } from './validate'
 
 function EditStudent (props) {
 
@@ -86,7 +87,9 @@ const mapDispatchToProps = function(dispatch, ownProps){
     handleSubmit: function(evt){
       evt.preventDefault();
       const history = ownProps.history
-      dispatch(saveStudentInfo(studentBeingEdited, history))
+      if (validate(studentBeingEdited)){
+        dispatch(saveStudentInfo(studentBeingEdited, history))
+      }
     }
 
   }

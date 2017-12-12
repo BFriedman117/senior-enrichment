@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import store, { writeStudentInfo, sendNewStudent, campi} from '../store';
-import {validate} from './validate'
+import { validate } from './validate'
 
 
 

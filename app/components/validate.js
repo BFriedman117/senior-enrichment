@@ -1,3 +1,5 @@
+
+
 function isBlank (obj){
   for (var k in obj){
     if (obj[k] === ''){
@@ -57,7 +59,7 @@ export const validate = function (student){
   }
   let warningString = warnings.join('\n');
   if (warningString.length){
-    alert(warningString);  
+    alert(warningString);
   }
   return valid
 }
