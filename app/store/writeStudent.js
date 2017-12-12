@@ -25,7 +25,7 @@ export default function reducer(state = initialStudent, action){
   switch(action.type){
 
     case WRITE_STUDENT_INFO:
-      return Object.assign({}, state, action.newStudent)
+      return Object.assign({}, action.newStudent)
 
     default:
       return state

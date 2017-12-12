@@ -106,5 +106,21 @@ apiRouter.delete('/campus/:id', (req, res, next) => {
   .catch(next)
 })
 
+//Students/Campus
+
+apiRouter.get('/student-campus/:campusId', (req,res,next) => {
+
+  Students.findAll({
+    where: {
+      campusId: req.params.campusId
+    }
+  })
+  .then((students) => {
+    res.send(students)
+  })
+  .catch(next)
+
+})
+
 
 module.exports = apiRouter;

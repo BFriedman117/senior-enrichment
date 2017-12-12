@@ -29,10 +29,10 @@ const mapStateToProps = function(state){
 }
 
 
-const mapDispatchToProps = function(dispatch){
+const mapDispatchToProps = function(dispatch, ownProps){
 
   const newCampus = store.getState().newCampus;
-
+  const history = ownProps.history
   const blankCampus = {
     name: '',
     description: '',
@@ -48,8 +48,12 @@ const mapDispatchToProps = function(dispatch){
 
     handleSubmit: function(evt){
       evt.preventDefault();
-
-      dispatch(sendNewCampus(newCampus))
+      console.log('newCampus before attempt: ', newCampus)
+      if (newCampus.imageUrl === ''){
+        newCampus.imageUrl = "https://d30y9cdsu7xlg0.cloudfront.net/png/792-200.png"
+      }
+      console.log('newCampus after attempt: ', newCampus)
+      dispatch(sendNewCampus(newCampus, history))
       dispatch(writeCampusInfo(blankCampus))
     }
   }

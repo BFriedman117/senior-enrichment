@@ -10,7 +10,7 @@ import newStudent from './writeStudent'
 import newCampus from './writeCampus'
 import editStudent from './editStudent'
 import editCampus from './editCampus'
-import buttons from './buttons'
+import studentCampus from './student-campus'
 
 
 
@@ -21,7 +21,7 @@ const reducer = combineReducers({
   editStudent,
   editCampus,
   newCampus,
-  buttons
+  studentCampus
 });
 
 const store = createStore(
@@ -37,4 +37,4 @@ export * from './writeStudent'
 export * from './writeCampus'
 export * from './editStudent'
 export * from './editCampus'
-export * from './buttons'
+export * from './student-campus'

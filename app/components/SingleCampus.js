@@ -2,12 +2,12 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter, NavLink } from 'react-router-dom'
 import CampusStudents from './CampusStudents'
-import store, { deleteCampus } from '../store';
+import store, { deleteCampus, fetchStudentCampus, saveStudentInfo } from '../store';
 
 
 function SingleCampus (props) {
 
-    const { campi, handleDelete } = props;
+    const { campi, handleDelete, studentCampus } = props;
     const id = Number(props.match.params.id)
     const currentCampus = campi.find(campus => campus.id === id)
 
@@ -56,24 +56,35 @@ function SingleCampus (props) {
 }
 
 const mapStateToProps = function(state){
+
   return {
     students: state.students,
-    campi: state.campi
+    campi: state.campi,
+    studentCapus: state.studentCampus
   }
 }
 
 const mapDispatchToProps = function(dispatch, ownProps){
+
   const id = {
     id: Number(ownProps.match.params.id)
   }
+
+  dispatch(fetchStudentCampus(id))
+  const studentCampus = store.getState().studentCampus
 
   return {
     handleDelete: function(evt){
       evt.preventDefault()
       const history = ownProps.history
-      const check = confirm(`Delete ${evt.target.name}?`)
-      if (check){
-        dispatch(deleteCampus(id, history))
+      let check;
+      if (studentCampus.length){
+        check = confirm(`Delete ${evt.target.name}?`)
+        if (check){
+          dispatch(deleteCampus(id, history))
+        }
+      } else {
+        alert('Reassign all students before delete!')
       }
     }
   }

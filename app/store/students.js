@@ -62,13 +62,14 @@ export function fetchStudents (){
   }
 }
 
-export function sendNewStudent (student){
+export function sendNewStudent (student, history){
 
   return function thunk(dispatch){
     return axios.post('/api/students', student)
     .then(res => res.data)
     .then(newStudent => {
       dispatch(addStudent(newStudent));
+      history.push(`/students/${newStudent.id}`)
     })
   }
 }

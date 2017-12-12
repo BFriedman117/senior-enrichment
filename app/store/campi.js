@@ -49,13 +49,14 @@ export function fetchCampi (){
   }
 }
 
-export function sendNewCampus (campus){
+export function sendNewCampus (campus, history){
 
   return function thunk(dispatch){
     return axios.post('/api/campuses', campus)
     .then(res => res.data)
     .then(newCampus => {
       dispatch(addCampus(newCampus));
+      history.push(`/campi/${newCampus.id}`)
     })
   }
 }

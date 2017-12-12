@@ -12,7 +12,6 @@ function EditStudent (props) {
 
       const id = Number(props.match.params.id)
       const currentStudent = students.find(student => student.id === id)
-      const studentBeingEdited = Object.assign({}, currentStudent);
 
       if (!currentStudent){
         return (
@@ -40,7 +39,7 @@ function EditStudent (props) {
           </div>
           <div>
             <button type="submit">Save Changes</button>
-              <NavLink to={`/students/${editStudent.id}`}>
+              <NavLink to={`/students/${id}`}>
                 <button>Back</button>
               </NavLink>
           </div>
@@ -61,12 +60,21 @@ const mapStateToProps = function(state, ownProps){
 
 const mapDispatchToProps = function(dispatch, ownProps){
 
-  const students = store.getState().students
-  const editStudent = store.getState().editStudent
-  const id = Number(ownProps.match.params.id)
-  const currentStudent = students.find(student => student.id === id)
-  const studentBeingEdited = Object.assign({}, currentStudent);
-  dispatch(changeStudentInfo(studentBeingEdited))
+  let students;
+  let editStudent;
+  let id;
+  let currentStudent;
+  let studentBeingEdited;
+
+  setTimeout(function(){
+     students = store.getState().students
+     editStudent = store.getState().editStudent
+     id = Number(ownProps.match.params.id)
+     currentStudent = students.find(student => student.id === id)
+     studentBeingEdited = Object.assign({}, currentStudent);
+    dispatch(changeStudentInfo(studentBeingEdited))
+  }, 50)
+
 
   return {
 

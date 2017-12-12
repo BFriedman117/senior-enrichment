@@ -40,7 +40,7 @@ function SingleStudent (props) {
                 <td>{currentStudent.email}</td>
                 <td>{currentStudent.gpa}</td>
                 <td>
-                  <NavLink to={`/campi/${currentStudent.campus}`}>
+                  <NavLink to={`/campi/${currentStudent.campusId}`}>
                     {studentCampus.name}
                   </NavLink>
                 </td>

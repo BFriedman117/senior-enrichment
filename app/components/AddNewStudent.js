@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import store, { writeStudentInfo, sendNewStudent, campi} from '../store';
+import {validate} from './validate'
 
 
 
@@ -39,9 +40,13 @@ const mapStateToProps = function(state){
 }
 
 
-const mapDispatchToProps = function(dispatch){
+
+
+
+const mapDispatchToProps = function(dispatch, ownProps){
 
   const newStudent = store.getState().newStudent;
+  const history = ownProps.history
 
   const blankStudent = {
     firstName: '',
@@ -61,8 +66,19 @@ const mapDispatchToProps = function(dispatch){
     handleSubmit: function(evt){
       evt.preventDefault();
 
-      dispatch(sendNewStudent(newStudent))
-      dispatch(writeStudentInfo(blankStudent))
+      if (validate(newStudent)){
+        dispatch(writeStudentInfo(blankStudent))
+        dispatch(sendNewStudent(newStudent, history))
+      }
+
+
+      //Great hackey idea:
+
+      // setTimeout(function(){
+      //   for (var k in newStudent){
+      //     newStudent[k] = ''
+      //   }
+      // }, 50)
     }
 
   }

@@ -1,17 +1,15 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { withRouter, NavLink } from 'react-router-dom'
+import { withRouter, NavLink } from 'react-router-dom';
+
 
 
 
 function CampusStudents (props) {
 
-  const { campi, students } = props;
-  const id = Number(props.match.params.id)
-  const currentCampus = campi.find(campus => campus.id === id)
-  const campusStudents = students.filter(student => student.campusId === currentCampus.id)
+  const { studentCampus } = props;
 
-  if ( campi.length && students.length ){
+  if ( studentCampus ){
     return (
       <div className='campus-students'>
         <hr></hr>
@@ -22,7 +20,7 @@ function CampusStudents (props) {
               <th>Name</th>
             </tr>
             {
-              campusStudents.map(student => (
+              studentCampus.map(student => (
                 <tr key={student.id}>
                   <td>
                     <NavLink to={`/students/${student.id}`}>
@@ -43,8 +41,7 @@ function CampusStudents (props) {
 
 const mapStateToProps = function(state){
   return {
-    students: state.students,
-    campi: state.campi
+    studentCampus: state.studentCampus
   }
 }
 

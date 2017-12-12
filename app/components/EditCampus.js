@@ -32,7 +32,7 @@ function EditCampus (props) {
           </div>
           <div>
             <button type="submit">Save Changes</button>
-              <NavLink to={`/campi/${editCampus.id}`}>
+              <NavLink to={`/campi/${id}`}>
                 <button>Back</button>
               </NavLink>
           </div>
@@ -53,12 +53,21 @@ const mapStateToProps = function(state, ownProps){
 
 const mapDispatchToProps = function(dispatch, ownProps){
 
-  const campi = store.getState().campi
-  const editCampus = store.getState().editCampus
-  const id = Number(ownProps.match.params.id)
-  const currentCampus = campi.find(campus => campus.id === id)
-  const campusBeingEdited = Object.assign({}, currentCampus);
-  dispatch(changeCampusInfo(campusBeingEdited))
+  let campi
+  let editCampus
+  let id
+  let currentCampus
+  let campusBeingEdited
+
+  setTimeout(function(){
+    campi = store.getState().campi
+    editCampus = store.getState().editCampus
+    id = Number(ownProps.match.params.id)
+    currentCampus = campi.find(campus => campus.id === id)
+    campusBeingEdited = Object.assign({}, currentCampus);
+    dispatch(changeCampusInfo(campusBeingEdited))
+  }, 50)
+
 
   return {
 
